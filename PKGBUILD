@@ -14,7 +14,8 @@ depends=('zlib' 'gnupg' 'openssl' 'postgresql' 'glib2' 'flex' 'autoconf' 'automa
 optdepends=()
 provides=('irrd')
 conflicts=()
-source=("git+https://github.com/irrdnet/irrd.git#tag=v3.0.9rc2")
+source=('git+https://github.com/irrdnet/irrd.git#tag=v3.0.9rc2'
+	'irrd.service')
 _gitname=irrd
 
 pkgver() {
@@ -32,7 +33,10 @@ build() {
 package() {
     cd "$_gitname/src"
     make DESTDIR="$pkgdir" install
+    install -D -m644 "../samples/irrd.conf.sample" "$pkgdir/etc/irrd.conf"
+    install -D -m644 "$srcdir/irrd.service" "$pkgdir/usr/lib/systemd/system/irrd.service"
 }
 
-md5sums=('SKIP')
+md5sums=('SKIP'
+	'f43dbbcccab4dbe94de0d239190b554f')
 

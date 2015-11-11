@@ -1,0 +1,11 @@
+[Unit]
+Description=Internet Routing Registry daemon
+Documentation=https://github.com/irrdnet/irrd
+After=network.target
+
+[Service]
+ExecStart=/usr/sbin/irrd -c /etc/irrd.conf -n
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
